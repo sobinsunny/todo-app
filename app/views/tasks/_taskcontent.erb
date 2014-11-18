@@ -1,0 +1,176 @@
+
+
+<% @tasks.each do |task| %>
+      <div id="task_<%=task.id %>" class="div_task"  >
+        <div id="dispaly_text_div">
+                <p><%= task.task%>
+                  <br>
+                         <p style="color:#cccccc"><%= task.created_at%></p>
+
+                   </p>
+        </div>
+        <div id="icon_img">
+                <img class="img_up" data-id=<%=task.id %> data-user_id=<%=task.users_id%> data-order_id=<%=task.task_order%>>
+                <img class="img_down" data-id=<%=task.id %> data-user_id=<%=task.users_id%> data-order_id=<%=task.task_order%>>
+                <img class="img_close" data-id=<%=task.id %> data-user_id=<%=task.users_id%>>
+          <%if(task.status==0) %>
+                <img class="img_done" data-id=<%=task.id %> data-user_id=<%=task.users_id%>>
+          <%else%>
+              <img class="img_ok" data-id=<%=task.id %> data-user_id=<%=task.users_id%>>
+          <%end%>
+        </div>
+      </div>
+
+<%end%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+        $(".img_close").click(function(e){
+            task_name=$(this).data("id");
+            user_id=$(this).data("user_id");
+            var formURL = "/users/"+user_id+"/tasks/"+task_name;
+
+            $.ajax(
+                    {
+                        url: formURL,
+                        type: "DELETE",
+                        data: {
+                            task : {
+                                delete_id : task_name
+                            }
+                        },
+                        success: function (data, textStatus, jqXHR) {
+                            $("#content_area").html(data);
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+
+
+            e.preventDefault();	//STOP default action
+        });
+        $(".img_done").click(function(e){
+            task_name=$(this).data("id");
+            user_id=$(this).data("user_id");
+            alert(task_name);
+            var formURL = "/users/"+user_id+"/tasks/"+task_name;
+
+            $.ajax(
+                    {
+                        url: formURL,
+                        type: "PUT",
+                        data: {
+                            task : {
+                                status_id : task_name
+                            }
+                        },
+                        success: function (data, textStatus, jqXHR) {
+
+                            $("#content_area").html(data);
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+
+
+            e.preventDefault();
+        });
+        //task up image
+        $(".img_up").click(function(e){
+            task_name=$(this).data("id");
+            order_id=$(this).data("order_id");
+            var formURL = "/tasks/changeorder_up";
+
+            $.ajax(
+                    {
+                        url: formURL,
+                        type: "PUT",
+                        data: {
+                            task : {
+                                order_id : order_id,
+                                task_id:task_name
+
+                            }
+                        },
+                        success: function (data, textStatus, jqXHR) {
+
+                            $("#content_area").html(data);
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+
+
+            e.preventDefault();
+        });
+        $(".img_down").click(function(e){
+            task_name=$(this).data("id");
+            order_id=$(this).data("order_id");
+            var formURL = "/tasks/changeorder_down";
+
+            $.ajax(
+                    {
+                        url: formURL,
+                        type: "PUT",
+                        data: {
+                            task : {
+                                order_id : order_id,
+                                task_id:task_name
+
+                            }
+                        },
+                        success: function (data, textStatus, jqXHR) {
+
+                            $("#content_area").html(data);
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+
+
+            e.preventDefault();
+        });
+</script>
+

@@ -1,0 +1,57 @@
+<%= stylesheet_link_tag "todo_css"%>
+<%= javascript_include_tag "jquery-2.1.1" %>
+<%= javascript_include_tag "user_script" %>
+<% form_for @user do |f| %>
+    <img id="logo"  src="/images/Logo.png" width="32" />
+    <table id="login_panel">
+
+      <tr class="line_color">
+        <td class="blink_text fade"><%= link_to "Log in", :controller=>"users",:action=>"login" %></td></td>
+        <td class="rt blink_text ">Sign up</td>
+      </tr>
+      <tr>
+        <td>
+          <%= f.label :Name %>
+        </td>
+        <td>
+          <%= f.text_field :name,:required=>"true",:placeholder=>"Name" %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= f.label :Email %>
+        </td>
+        <td>
+          <%= f.text_field :email,:required=>"true",:placeholder=>"Email" %>
+        </td>
+      </tr>
+      <tr>
+
+      <tr>
+        <td>
+          <%= f.label :Password %>
+        </td>
+        <td>
+          <%= f.password_field :password,:required=>"true",:placeholder=>"Password" %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :Confirm%>
+        </td>
+        <td>
+          <input type="password" :name="password_confirm" type="password" id="password_confirm" required="true" palceholder="Confirm password">
+        </td>
+        <td id="error_password"></td>
+      </tr>
+
+        <td></td>
+        <td>
+          <%=f.submit 'Sign up',:class=>"btn" ,:onclick=>"validatePassword();"%>
+        </td>
+      </tr>
+    </table>
+<%end%>
+
+

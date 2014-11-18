@@ -1,0 +1,234 @@
+img{
+    border:0;
+}
+.div_task{
+    width: 592px;
+    background-color: #f4f4f4;
+    min-height: 60px;
+    padding:20px;
+    margin-bottom: 25px;
+    word-wrap: break-word;
+
+
+}
+#dispaly_text_div{
+    float: left;
+    word-wrap: break-word;
+}
+p{
+
+    word-wrap: break-word;
+
+}
+#icon_img{
+    float:left;
+    position: absolute;
+    margin-right: 20px;
+}
+#task{
+    width: 50%;
+    height: 50px;
+    padding:50px;
+    margin: 50px;
+}
+body{
+    background-color: #e8e8e8;
+}
+#login_panel{
+
+    margin-left:355px;
+    margin-right:355px;
+    margin-top: 26px;
+    margin-bottom: 238px;
+    width:535px;
+    height:364px;
+    background-color: #ffffff;
+    padding:30px;
+    line-height:50px;
+    font-family: 'Open Sans light';
+    font-size:18px ;
+    color:#34495e;
+    box-shadow: 0px 3px 3px #d5d5d5;
+
+}
+#user_email,#user_password,#user_name,#password_confirm{
+    height: 30px;
+    width: 378px;
+    border-color: #cccccc;
+    float:right;
+    border-width: thin;
+    box-shadow: none;
+    background-color:  #e8e8e8;
+}
+.rt{
+    float:right;
+    text-align: right;
+
+}
+a:link {
+    text-decoration: none;
+    color:black;
+}
+.blink_text{
+    font-size:25px ;
+    color:#34495e;
+    text-decoration: none;
+
+}
+.fade{
+    opacity: .25;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+
+}
+.fade:hover,:active{
+    opacity: 1;
+    color:black;
+}
+#logo{
+    width: 131px;
+    height: 47px;
+    margin-left: 540px;
+    margin-top: 30px;
+    
+}
+#logo_application{
+    width: 131px;
+    height: 47px;
+}
+#error_password{
+    color:red;
+}
+.btn{
+    background-color: #1bbc9b;
+    font-weight: bold;
+    margin-right: 15px;
+    color: #ffffff;
+    width: 174px;
+    height: 40px;
+    font-family: 'Open Sans light';
+    font-size:25px ;
+    margin-left: 13px;
+    box-shadow: none;
+    border-radius:7px;
+    border-style: none;
+
+}
+.line_color{
+    border-bottom-color: #e8e8e8;
+    border-bottom-width: medium;
+
+}
+#task_body{
+    width:615px;
+    margin:0 auto;
+    margin-top: 57px;
+}
+#textbox1{
+    width:635px;
+    height: 42px;
+    box-shadow: 0px 3px 3px #d5d5d5;
+    padding-left: 35px;
+    word-wrap: break-word;
+
+}
+#hedder_div
+{
+    width: 635px;
+    height: 62px;
+}
+#content_area{
+    margin-top: 80px;
+}
+#img_textbox{
+
+    background: url('/images/iconsprite.png') no-repeat -116px -8px;
+    width: 24px;
+    height: 24px;
+    z-index:1;
+    position: absolute;
+    margin-top: 12px;
+    margin-left: 10px;
+    margin-bottom: 7px;
+    border: none;
+}
+.img_done{
+
+    background: url('/images/iconsprite.png') no-repeat -145px -0px;
+    width: 34px;
+    height: 34px;
+    z-index:1;
+    position: absolute;
+    margin-top: 12px;
+    margin-left: 525px;
+    margin-bottom: 7px;
+    border:0px;
+}
+.img_up{
+
+    background: url('/images/iconsprite.png') no-repeat -48px -13px;
+    width: 12px;
+    height: 9px;
+    z-index:1;
+    position: absolute;
+    margin-top: 26px;
+    margin-left: 445px;
+    margin-bottom: 7px;
+    border-style: none;
+    border: none;
+}
+.img_down{
+
+    background: url('/images/iconsprite.png') no-repeat -12px -13px;
+    width: 12px;
+    height: 9px;
+    z-index:1;
+    position: absolute;
+    margin-top: 26px;
+    margin-left: 471px;
+    margin-bottom: 7px;
+    border: none;
+}
+.img_close{
+
+    background: url('/images/iconsprite.png') no-repeat -83px -10px;
+    width: 14px;
+    height: 14px;
+    z-index:1;
+    position: absolute;
+    margin-top: 23px;
+    margin-left: 493px;
+    margin-bottom: 7px;
+    border: none;
+}
+.img_close:hover,:active{
+    background: url('/images/iconsprite.png') no-repeat -83px -46px;
+}
+.img_done:hover,:active{
+    background: url('/images/iconsprite.png') no-repeat  -145px -35px;
+}
+.img_up:hover,:active {
+    background: url('/images/iconsprite.png')  no-repeat -48px -49px;
+}
+.img_down:hover,:active {
+    background: url('/images/iconsprite.png') no-repeat -12px -48px;
+}
+.img_ok{
+    background: url('/images/iconsprite.png') no-repeat -145px -72px;
+    width: 34px;
+    height: 34px;
+    z-index:1;
+    position: absolute;
+    margin-top: 12px;
+    margin-left: 525px;
+    margin-bottom: 7px;
+    border: none;
+}
+.img_ok:hover,:active{
+    background: url('/images/iconsprite.png') no-repeat -145px -108px;
+}
+#name,#logout{
+    float: right;
+    margin-left: 15px;
+}

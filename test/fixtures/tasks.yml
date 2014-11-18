@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  task: MyText
+  order: 1
+  status: 1
+  user: 
+
+two:
+  task: MyText
+  order: 1
+  status: 1
+  user: 
