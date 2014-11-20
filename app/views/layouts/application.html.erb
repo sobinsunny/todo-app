@@ -1,11 +1,26 @@
+<html>
+<head>
+  <title></title>
+  <%= stylesheet_link_tag "todo_css"%>
+</head>
+<body>
 <%= javascript_include_tag "jquery-2.1.1" %>
 <%= javascript_include_tag "script" %>
-<%= stylesheet_link_tag "todo_css"%>
-
-<div id="task_body">
-  <div id="hedder_div"> <img id="logo_application"  src="/images/Logo.png" width="32" />
-  <div id="logout"><%= link_to "Logout", :controller=>"users",:action=>"logout" %></div>
-  <div id="name">name</div>
-  </div>
-  <%= yield %>
-</div>
+    <div id="task_body">
+        <div id="hedder_div">
+            <img id="logo_application"  src="/images/Logo.png" width="32" />
+            <div id="logout"><%= link_to "Logout", :controller=>"users",:action=>"logout" %>
+            </div>
+            <div id="name"> <%= @user.name %>
+            </div>
+            <div id="name_div">
+                <ul>
+                  <li><%= @user.email %></li>
+                  <li><%= link_to "Change password", :controller=>"users",:action=>"changepassword" %></li>
+                </ul>
+            </div>
+        </div>
+      <%= yield %>
+    </div>
+</body>
+</html>

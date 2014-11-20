@@ -13,10 +13,10 @@
                 <img class="img_up" data-id=<%=task.id %> data-user_id=<%=task.users_id%> data-order_id=<%=task.task_order%>>
                 <img class="img_down" data-id=<%=task.id %> data-user_id=<%=task.users_id%> data-order_id=<%=task.task_order%>>
                 <img class="img_close" data-id=<%=task.id %> data-user_id=<%=task.users_id%>>
-          <%if(task.status==0) %>
-                <img class="img_done" data-id=<%=task.id %> data-user_id=<%=task.users_id%>>
-          <%else%>
-              <img class="img_ok" data-id=<%=task.id %> data-user_id=<%=task.users_id%>>
+                <%if(task.status==0) %>
+                        <img class="img_done" data-id=<%=task.id %> data-user_id=<%=task.users_id%>>
+                <%else%>
+                      <img class="img_ok" data-id=<%=task.id %> data-user_id=<%=task.users_id%>>
           <%end%>
         </div>
       </div>

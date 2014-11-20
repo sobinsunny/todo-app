@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'users',:action =>'login'
-  map.resources :users,:collection=>{:login=>[:get,:post],:logout=>[:get]}
+  map.resources :users,:collection=>{:login=>[:get,:post],:changepassword=>[:get,:post],:logout=>[:get]}
   # map.resources :users
   map.resources :users do |user|
       user.resources :tasks

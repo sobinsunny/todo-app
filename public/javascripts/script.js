@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $("#name_div").hide();
     $("#textbox1").keypress(function(e){
 
         if (e.keyCode == 13) {
@@ -27,6 +28,9 @@ $(document).ready(function(){
                 });
         }
 
+    });
+    $("#name").click(function () {
+        $("#name_div").show();
     });
 //    $(".img_close").bind("click",function(e){
 //        task_name=$(this).data("id");

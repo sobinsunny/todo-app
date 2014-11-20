@@ -37,6 +37,23 @@ class UsersController < ApplicationController
 
 
   end
+  def changepassword
+    if request.post?
+    paswd=params[:user][:password]
+    puts paswd
+    @user=User.find(session[:user_id])
+    puts @user
+    new_password=BCrypt::Password.create(paswd)
+
+         if @user.update_attributes(:password=>paswd,:password_confirmation=>new_password)
+
+           session.delete(:user_id)
+           redirect_to login_users_path
+         else
+           puts " not Suceesful"
+     end
+  end
+  end
 
   def create
     key ="newdata"
@@ -45,9 +62,11 @@ class UsersController < ApplicationController
     paswd=params["user"]["password"]
     @user[:password]=BCrypt::Password.create(paswd)
     if @user.save
+      UserMailer.deliver_welcome_email(@user)
       redirect_to login_users_path
     else
       puts "error"
+      render :new
     end
 
   end

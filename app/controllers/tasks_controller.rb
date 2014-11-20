@@ -49,7 +49,6 @@ def changeorder_down
     task_id_up=task_id+1
     order_id=params[:order_id].to_i
     order_up_id=order_id-1;
-    puts "*********************yes its***********************"
     puts task_id
     puts order_up_id
     Task.find(task_id).update_attributes(:task_order=>order_up_id)
@@ -85,6 +84,8 @@ private
 def check_id
   if session[:user_id].nil?
     redirect_to :controller=>'users',:action=>"login"
+  else
+    @user=User.find(session[:user_id])
   end
 return true
 end
