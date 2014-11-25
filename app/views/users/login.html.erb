@@ -5,17 +5,16 @@
     <table id="login_panel">
 
       <tr class="line_color">
-        <td class="blink_text">Login</td></td>
+        <td class="blink_text">Log in</td></td>
         <td class="rt blink_text fade" > <%= link_to "Sign up", :controller=>"users",:action=>"new" %></td>
       </tr>
       <tr>
            <td>
                 <%=f.label :email %>
-             <hr/>
 
            </td>
            <td>
-                <%=f.text_field :email %>
+                <%=f.text_field :email,:placeholder=>"Email" %>
            </td>
       </tr>
       <tr>

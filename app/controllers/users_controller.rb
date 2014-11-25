@@ -4,9 +4,8 @@ require 'bcrypt'
 
 
 class UsersController < ApplicationController
-  layout false
+  layout false, :except => 'changepassword'
   def login
-    key ="newdata"
     @tasks=Task.new
     @user=User.new
     if request.post?
