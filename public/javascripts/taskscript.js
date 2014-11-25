@@ -52,6 +52,36 @@ function image_done(task_id,user_id)
         });
 
 }
+//function password_change()
+//{
+//    var str1 = $.trim($('#user_new_password').val());
+//    var str2 = $.trim($('#user_new_password_confirm').val());
+//    if(str1==str2){
+//        $.ajax(
+//            {
+//                url: '/users/changepassword',
+//                type: "PUT",
+//                data: {
+//                    task : {
+//                        new_password : str1
+//                    }
+//                },
+//                success: function (data, textStatus, jqXHR) {
+//
+//                    $("#content_area").html(data);
+//
+//                },
+//                error: function (jqXHR, textStatus, errorThrown) {
+//                }
+//            });
+//
+//    }
+//    else
+//    {
+//        alert ("password mismatch")
+//    }
+//}
+
 function image_up(task_id)
 {
     task_name=task_id
