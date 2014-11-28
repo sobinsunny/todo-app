@@ -1,36 +1,43 @@
-
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300' rel='stylesheet' type='text/css'>
 <%= stylesheet_link_tag "todo_css"%>
-<%form_for :user, :controller=>"users",:action=>"login" do |f|%>
+<%= javascript_include_tag "taskscript" %>
+<%= javascript_include_tag "script" %>
+
+<%unless flash[:notice_login].nil?%>
+    <div style="width:606px" class="note" id="note" onclick="delete_flash_msg()"><p id="flash_msg"> <%=flash[:notice_login] %></p></div>
+<%end%>
+
+<div id="content_align">
     <img id="logo"  src="/images/Logo.png" width="32" />
+    <%form_for :user, :controller=>"users",:action=>"login" do |f|%>
     <table id="login_panel">
-
       <tr class="line_color">
-        <td class="blink_text">Log in</td></td>
-        <td class="rt blink_text fade" > <%= link_to "Sign up", :controller=>"users",:action=>"new" %></td>
+        <td><div class="blink_text">Log in</div></td>
+        <td><div class="rt blink_text fade">  <%= link_to "Sign up", :controller=>"users",:action=>"new" %> </div> </td>
       </tr>
       <tr>
-           <td>
-                <%=f.label :email %>
+        <td>
+          <%=f.label :email %>
 
-           </td>
-           <td>
-                <%=f.text_field :email,:placeholder=>"Email" %>
-           </td>
+        </td>
+        <td>
+          <%=f.text_field :email,:placeholder=>"Email",:required=>true %>
+        </td>
       </tr>
       <tr>
-            <td>
-                <%=f.label :Password %>
-            </td>
-            <td>
-                <%=f.password_field :password,:placeholder=>"Password"%>
-            </td>
+        <td>
+          <%=f.label :Password %>
+        </td>
+        <td>
+          <%=f.password_field :password,:placeholder=>"Password",:required=>true%>
+        </td>
       </tr>
       <tr>
         <td></td>
-        <td>
-                <%=f.submit 'Log in',:class=>"btn"%><u>Forgot password ?</u>
+        <td class="button">
+          <%=f.submit 'Log in',:class=>"btn"%><u>Forgot password ?</u>
         </td>
       </tr>
     </table>
-
+</div>
 <%end%>

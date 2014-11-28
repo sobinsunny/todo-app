@@ -7,6 +7,8 @@ class CreateTasks < ActiveRecord::Migration
       t.references :users
       t.timestamps
     end
+
+	
   end
 
   def self.down

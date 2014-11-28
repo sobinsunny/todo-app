@@ -1,12 +1,14 @@
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300' rel='stylesheet' type='text/css'>
 <%= stylesheet_link_tag "todo_css"%>
+<div id="content_align">
 <% form_for @user do |f| %>
     <%= f.error_messages %>
     <img id="logo"  src="/images/Logo.png" width="32" />
     <table id="signup_panel">
     <div class="line_color_div">
       <tr class="line_color">
-        <td class="blink_text fade"><%= link_to "Log in", :controller=>"users",:action=>"login" %></td></td>
-        <td class="rt blink_text ">Sign up</td>
+        <td><div class="blink_text fade "><%= link_to "Log in", :controller=>"users",:action=>"login" %></div></td>
+        <td><div class="rt blink_text"> Sign up </div> </td>
       </tr>
     </div>
       <tr>
@@ -52,5 +54,6 @@
       </tr>
     </table>
 <%end%>
+    </div>
 
 
