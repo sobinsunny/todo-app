@@ -1,14 +1,14 @@
 $(document).ready(function() {
     $("#name_div").hide();
     $(".pagination").hide();
+    $(".modal").hide();
     close = document.getElementById("close");
     setTimeout(function(){
         $('#note').fadeOut();// or fade, css display however you'd like.
     }, 1000);
+
+
     $("#name_div").hide();
-    setTimeout(function(){
-        $('#note').display("none");// or fade, css display however you'd like.
-    }, 1000);
     $("#textbox1").keypress(function (e) {
         if (e.keyCode == 13) {
             var task_name = $(this).val()
@@ -39,6 +39,66 @@ $(document).ready(function() {
         }
 
     });
+    $("#comment_box").keypress(function (e) {
+        if (e.keyCode == 13) {
+            var comment = $(this).val()
+            var id=$(this).data("task_id")
+            if (comment.length == 0)
+            {
+                return false;
+            }
+            else {
+                var formURL = "  /users/1/tasks/"+id+"/comments"
+                $.ajax(
+                    {
+                        url: formURL,
+                        type: "POST",
+                        data: {
+                            task: {
+                                body: comment
+                            }
+                        },
+                        success: function (data, textStatus, jqXHR) {
+                            $("#comment_partial_div").html(data);
+                            $("#comment_box").val("");
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+            }
+        }
+
+    });
+    $("#search_box").keypress(function (e) {
+        if (e.keyCode == 13) {
+            var task_name = $(this).val()
+            if (task_name.length == 0)
+            {
+                return false;
+            }
+            else {
+                var formURL = "/tasks/search_task"
+                $.ajax(
+                    {
+                        url: formURL,
+                        type: "POST",
+                        data: {
+                            task: {
+                                task_name: task_name
+                            }
+                        },
+                        success: function (data, textStatus, jqXHR) {
+                            $("#content_area").html(data);
+                            $("#textbox1").val("");
+                            $(".pagination").hide();
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+            }
+        }
+
+    });
     $("#name").click(function(event) {
         event.stopPropagation();
         $("#name_div").show();
@@ -46,14 +106,88 @@ $(document).ready(function() {
     $("body").click(function () {
         $("#name_div").hide();
     });
+
+
+
+
+
+
+
+
 });
-close.addEventListener('click', function() {
-    note = document.getElementById("note");
-    note.style.display = 'none';
-}, false);
+
 function delete_flash_msg()
     {
         setTimeout(function(){
         $('#note').hide();
     }, 5000);
+}
+
+
+
+
+
+
+
+
+
+
+function outputUpdate(task_id,vol) {
+    document.querySelector('#volume').value = vol;
+    var formURL = "   /tasks/update_task_progess"
+    $.ajax(
+        {
+            url: formURL,
+            type: "POST",
+            data: {
+                task: {
+                    task_range: vol,
+                    task_id:task_id
+                }
+            },
+            success: function (data, textStatus, jqXHR) {
+                $("#comment_partial_div").html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+}
+function share_task(task_id) {
+    var user_id_share=$('form').serialize()+ '&task_id=' + task_id
+    var formURL = "/tasks/share_task"
+    $.ajax(
+        {
+            url: formURL,
+            type: "POST",
+            data: user_id_share,
+
+            success: function (data, textStatus, jqXHR) {
+
+                $("#share_div_partials").html(data);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+}
+function share_task_name_dispaly(task_id) {
+    var formURL = "/tasks/share_name_display"
+    $.ajax(
+        {
+            url: formURL,
+            type: "POST",
+            data: {
+                task: {
+                          task_id:task_id
+                     }
+            },
+            success: function (data, textStatus, jqXHR) {
+                $("#modal-body").html(data);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+
+
 }

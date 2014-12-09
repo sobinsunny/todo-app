@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     if request.post?
       if @user.update_attributes(params[:user])
         session.delete(:user_id)
-        flash[:notice_login] = 'You successfully changed your password login again with new password.'
+
         redirect_to login_users_path
       else
       puts @user.errors.full_messages
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
       @user=User.find(@email_user_id)
       if @email_check_id==@user.check
           if @user.update_attributes(:check=>1)
-          redirect_to :controller => "users", :action => "login"
+            redirect_to :controller => "users", :action => "login"
           else
 
           end

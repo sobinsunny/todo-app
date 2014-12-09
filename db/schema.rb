@@ -9,15 +9,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141111122543) do
+ActiveRecord::Schema.define(:version => 20141203110821) do
+
+  create_table "comments", :force => true do |t|
+    t.text     "body"
+    t.integer  "task_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "task_id"
+    t.integer  "task_order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tasks", :force => true do |t|
     t.text     "task"
-    t.integer  "task_order"
     t.integer  "status"
-    t.integer  "users_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "task_progress", :default => 0
   end
 
   create_table "users", :force => true do |t|

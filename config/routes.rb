@@ -1,9 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'users',:action =>'login'
-  map.resources :users,:collection=>{:login=>[:get,:post],:changepassword=>[:get,:post],:logout=>[:get],:emailcheck=>[:get]}
-  # map.resources :users
+  map.resources :users,:collection=>{:login=>[:get,:post],:changepassword=>[:get,:post],:logout=>[:get],:emailcheck=>[:get],:tasks_catagory=>[:get]}
+  map.resources :tasks,:collection=>{:update_task_progess=>[:put],:share_task=>[:post],:share_name_display=>[:get],:changeorder_up=>[:put],:changeorder_down=>[:put],:search_task=>[:get]}
   map.resources :users do |user|
-      user.resources :tasks
+    user.resources :tasks do |task|
+        task.resources:comments
+    end
+  end
+  map.resources :tasks do |task|
+    task.resources:comments
   end
   # The priority is based upon order of creation: first created -> highest priority.
 

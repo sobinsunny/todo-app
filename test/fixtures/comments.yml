@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  commenter: MyString
+  body: MyText
+  task: 
+  user: 
+
+two:
+  commenter: MyString
+  body: MyText
+  task: 
+  user: 

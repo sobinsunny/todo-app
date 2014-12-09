@@ -1,4 +1,30 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .div_task{
     width: 575px;
     background-color:#f4f4f4;
@@ -14,12 +40,23 @@
     float: left;
     word-wrap: break-word;
 }
-p{
+#c {
+    color: #34495e !important;
+}
+#c:hover{
+    color:#34495e !important;
+    text-decoration: underline;
+}
+p #c{
 
     word-wrap: break-word;
     font-family: 'Open Sans';
     font-weight: 100;
     padding:0px;
+    margin: 1px !important;
+    min-height: 8px;
+    overflow-x: auto;
+    min-width:40px;
 
 }
 #icon_img{
@@ -36,7 +73,7 @@ p{
     font-size: 16px;
 }
 body{
-    background-color: #e8e8e8;
+    background-color: #e8e8e8 !important;
     font-family: Sans-Serif;
 }
 #content_align{
@@ -45,8 +82,10 @@ body{
     width:595px;
 }
 body a{
-
+color:#34495e !important;
+text-decoration: none;
 }
+
 #login_panel,#signup_panel{
     margin-right:355px;
     margin-top: 26px;
@@ -100,16 +139,17 @@ body a{
 }
 a:link {
 
-    text-decoration: none;
+    text-decoration: none !important;
     cursor: pointer;
     font-family: 'Open Sans';
     font-weight: 100;
-
+    color:#34495e !important;
+    text-decoration: underline;
 
 }
 .blink_text{
     font-size:25px ;
-    color:#34495e;
+    color:#34495e !important;
     text-decoration: none;
     cursor: pointer;
     font-family: 'Open Sans';
@@ -135,10 +175,13 @@ a:link {
     margin-left: 231px;
     margin-top: 30px;
 
+
 }
 #logo_application{
     width: 131px;
     height: 47px;
+    margin-left: 45%;
+    margin-bottom: 50px;
 }
 #error_password{
     color:red;
@@ -274,6 +317,16 @@ tr.line_color td {
     word-wrap: break-word;
     border-style: none;
 }
+#comment_box{
+    width:635px;
+    height: 42px;
+    box-shadow: 0px 3px 0px #d5d5d5;
+    padding-left: 40px;
+    word-wrap: break-word;
+    border-style: none;
+    margin-top: 22px;
+
+}
 #textbox1:focus{
     border-width: 1px;
     border-color: forestgreen;
@@ -310,7 +363,7 @@ p{
 .img_done{
     background: url('/images/iconsprite.png') no-repeat -143px 0px;
     width: 37px;
-    height: 37px;
+    height: 36px;
     z-index:1;
     position: absolute;
     margin-top: 12px;
@@ -361,7 +414,7 @@ p{
 
     background: url('/images/iconsprite.png') no-repeat -83px -10px;
     width: 14px;
-    height: 14px;
+    height: 18px;
     z-index:1;
     position: absolute;
     margin-top: 23px;
@@ -387,7 +440,7 @@ p{
     background: url('/images/iconsprite.png') no-repeat  -143px -36px;
     border: none;
     width: 37px;
-    height: 37px;
+    height: 36px;
     cursor: pointer;
     border-style: none;
 }
@@ -421,6 +474,7 @@ p{
     outline:none;
 }
 .img_done:active{
+
     background: url('/images/iconsprite.png') no-repeat  -143px -35px;
     border: 0px none;
     border: 0px none;
@@ -469,10 +523,10 @@ li{
 #name,#logout{
     font-family: 'Open Sans';
     font-weight: 100;
+    color: #34495e;
     float: right;
     margin-left: 30px;
     font-size:16px ;
-    color:#cccccc;
     margin-top: 6px;
     margin-right: 4px;
 }
@@ -489,8 +543,12 @@ img {
     border-style: none;
 }
 body a{
-    color: #CCC;
+    color: #CCCCCC;
     margin: 0 auto;
+    cursor: hand;
+}
+body a:hover{
+    text-decoration: underline;
 }
 
 #name_div{
@@ -499,7 +557,7 @@ body a{
     min-width: 110px;
     min-height:10px !important;
     background-color: #ffffff;
-    margin-left: 500px;
+    margin-left: 464px;
     font-size:12px ;
     line-height:25px;
     padding-bottom: 10px;
@@ -519,7 +577,7 @@ body a{
     border-radius: 5px;
     line-height: 16px;
     box-shadow: 0px 0px 2px 1px #CCC;
-    top: 90px;
+    top: 177px;
 }
 
 
@@ -568,4 +626,78 @@ ul{
 #flash_msg{
     color: red;
     opacity:1;
+}
+#search_box{
+    width:145px;
+    background-color:#e8e8e8;
+    box-shadow: none !important;
+    border-color:#d5d5d5;
+    height: 20px;
+}
+#incompleted_tab  a #completed_tab a{
+    position: absolute;
+    text-decoration: none;
+    border: 1px solid mediumblue;
+    color:black !important;
+    position: relative;
+}
+#incompleted_tab a :active  #completed_tab a:active {
+
+    background-color:#f4f4f4;
+    border-radius: 0px;
+}
+#comment_hedder{
+    background-color: #ffffff;
+    position: relative;
+    padding: 30px;
+    width: 575px;
+    border-radius: 3px;
+}
+#task_data{
+    font-size:16px;
+    font-family: 'Open Sans';
+    font-weight: 300;
+    margin-bottom:30px;
+}
+#task_progress{
+    margin-bottom:30px;
+}
+#back_button{
+    margin-bottom: 10px;
+}
+#check{
+    background-color:green;
+
+}
+.save_button{
+    color: #34495e;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: #999999;
+    border-style: solid;
+    width: 85px;
+    height: 30px;
+    font-weight: bold;
+    background-color: white !important;
+    position: relative;
+    bottom: 1px;
+    cursor: pointer;
+}
+.cancel_button{
+    border-style: none;
+    background-color: white;
+    text-decoration: underline;
+    margin-right:5px !important;
+    width: 85px;
+    height: 30px;
+    position: relative;
+    bottom: 1px;
+    cursor: pointer;
+}
+.c{
+    font-size: 18px;
+    color:green;
+}
+#active a #inactive a{
+    color:#34495e;
 }

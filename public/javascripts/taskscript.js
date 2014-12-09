@@ -1,18 +1,61 @@
 $(".pagination").hide();
 $(".delete_div").hide();
+$("#name_div").hide();
+$(".modal").hide();
 $(document).ready(function() {
     upadate_orderchange_button();
     $("#name_div").hide();
     setTimeout(function(){
         $('#note').fadeOut();// or fade, css display however you'd like.
     }, 5000);
+    $( "#slider" ).slider({
+        change: function( event, ui ) {
+            var vol = $( "#slider" ).slider( "option", "value" );
+            var task_id=$(this).data("id")
+            var formURL = "   /tasks/update_task_progess"
+            $.ajax(
+                {
+                    url: formURL,
+                    type: "POST",
+                    data: {
+                        task: {
+                            task_range: vol,
+                            task_id:task_id
+                        }
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        $("#comment_partial_div").html(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                    }
+                });
+        }
+    });
+var p_value=$('#slider').data('progress_id')
+
+var $slider = $("#slider");
+    if ($slider.length > 0) {
+        $slider.slider({
+            min: 5,
+            max: 100,
+            value: p_value,
+            orientation: "horizontal",
+            range: "min"
+        });
+    }
 });
+
+var progres_val=$(this).data("progress_id");
+
+
+
     function upadate_orderchange_button() {
     $( ".img_up" ).css( "display", "block" );
     $( ".img_down" ).css( "display", "block" );
     $( ".img_up:first" ).css( "display", "none" );
     $( ".img_down:last" ).css( "display", "none" );
 }
+
 function image_ok(task_id) {
     task_name=task_id
     user_id=$(this).data("user_id");
@@ -40,7 +83,7 @@ function image_ok(task_id) {
 
 function image_done(task_id,user_id) {
     task_name=task_id
-    var formURL = "/users/"+user_id+"/tasks/"+task_name;
+    var formURL = "/tasks/"+task_name;
 
     $.ajax(
         {
@@ -65,7 +108,6 @@ function image_done(task_id,user_id) {
 function image_up(task_id)
 {
     task_name=task_id
-    order_id=$(this).data("order_id");
     var formURL = "/tasks/changeorder_up";
     $.ajax(
     {
@@ -73,9 +115,7 @@ function image_up(task_id)
     type: "PUT",
     data: {
         task : {
-            order_id : order_id,
-            task_id:task_name
-
+                     task_id:task_name
         }
     },
     success: function (data, textStatus, jqXHR) {
@@ -102,7 +142,6 @@ function image_down(task_id)
         type: "PUT",
         data: {
             task : {
-                order_id: order_id,
                 task_id:task_name
 
             }
@@ -133,7 +172,7 @@ $(function scroll_fun(){
         nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
         itemSelector : '.div_task',     // selector for all items you'll retrieve
         loading: {
-            finishedMsg: 'No more pages to load.',
+            finishedMsg: 'No more pages to load.'
 
         }
     },
@@ -166,8 +205,8 @@ function delete_task(user_id,id) {
             success: function (data, textStatus, jqXHR) {
                 $("#content_area").html(data);
                 upadate_orderchange_button();
+                window.location="http://localhost:3000/tasks";
                 $(this).remove()
-               $(docReady).bind( scroll_fun());
             },
             error: function (jqXHR, textStatus, errorThrown) {
             }

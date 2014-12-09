@@ -1,0 +1,97 @@
+<%= javascript_include_tag "taskscript" %>
+<%= javascript_include_tag "bootstrap" %>
+<%= stylesheet_link_tag "bootstrap" %>
+<%= stylesheet_link_tag "todo_css" %>
+<%= javascript_include_tag "modal_jss" %>
+<%= javascript_include_tag "taskscript" %>
+<%= javascript_include_tag "bootstrap" %>
+<%= javascript_include_tag "flat-ui" %>
+<%= stylesheet_link_tag "bootstrap" %>
+<%= stylesheet_link_tag "flat-ui" %>
+<%= javascript_include_tag "taskscript" %>
+<%= javascript_include_tag "bootstrap" %>
+<%= stylesheet_link_tag "bootstrap" %>
+<%= javascript_include_tag "modal_jss" %>
+
+<script>
+    $(function() {
+        $( "#slider" ).slider();
+    });
+</script>
+<%unless flash[:notice_login].nil?%>
+    <div class="note" onclick="delete_flash_msg()" id="note"><p id="flash_msg"> <%=flash[:notice_login] %></p></div>
+<%end%>
+<div>
+  <div class="modal" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"  style="font-family: 'open sans';font-weight: 100;font-size: 20px" id="myModalLabel">Add people to do this task</h4>
+        </div>
+        <div class="modal-body" style="font-family: 'open sans';font-weight: 100;font-size: 14px" id="modal-body" style="font-size: 16px !important;">
+          <h3> <%= render :partial => "sharetaskmodal"  %></h3>
+        </div>
+        <div class="modal-footer" style="background-color:#ffffff">
+          <button type="button" class="save_button" data-dismiss="modal" style="position:relative !important;" onclick="share_task(<%=@task.id%>)">Save</button>
+          <button type="button" class="cancel_button" data-dismiss="modal">cancel</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  <div id="back_button">
+    <%=link_to "< Go back to home",tasks_path,:style => "color: #34495e"%>
+  </div>
+
+  <div id="comment_hedder">
+
+
+    <div class="delete_div" id="delete_<%= params[:id] %>" style="background-color: #ffffff;z-index: 2">
+      <p id="delete_text">Are you sure you want to delete this entry?</p>
+      <div class="pull-right">
+        <button id="delete_task" onclick="delete_task(<%=params[:user_id]%>,<%= params[:id] %>)">Yes</button>
+        <button id="cancel_delete" onclick="cancel_delete(<%=params[:id] %>)">No</button>
+      </div>
+    </div>
+
+    <div id="task_data">
+      <p style="font-size:24px;">
+        <%=@task.task %>
+      </p>
+      <p style="word-wrap: break-word;color:#ccc;font-size: 16px;margin-bottom:8px;"><%=(@task.created_at).strftime("%I.%P,%d %b %Y")%></p>
+      <button  style="margin-top: -74px;margin-left: 574px;" class="img_close" onclick="delete_req(<%=params[:id]%>)"></button>
+    </div>
+    <p style="font-size:16px">Task completion</p>
+    <div id="slider" data-id="<%= params[:id] %>" data-progress_id="<%=@task.task_progress%>" style="height: 20px;border-radius: 0px;width: 85%">
+      <%if(@task.status==0) %>
+          <button  id="done " class="img_done" onclick="image_done(<%=@task.id %>,<%=@task.user_id%>)" data-id=<%=@task.id %> data-user_id=<%=@task.user_id%> style="margin-top: -9"> </button>
+      <%else%>
+          <button id="ok"  class="img_ok" onclick="image_ok(<%=@task.id %>,<%=@task.user_id %>)" data-id=<%=@task.id %> data-user_id=<%=@task.user_id%> style="margin-top: -9"> </button>
+      <%end%>
+    </div>
+    <div id="task_share">
+      <p style="font-size:16px">Share with</p>
+      <div id="share_div_partials">
+        <%= render :partial => "sharenames"  %>
+      </div>
+      <% if (@share_check.first.user_id==@u_id)%>
+          <input type="button"  data-toggle="modal" data-target="#basicModal" value="share this" onclick="share_task_name_dispaly(<%=@task.id%>)">
+      <%end%>
+    </div>
+  </div>
+
+  <div id="comment_partial_div">
+    <%= render :partial => "commentlist"  %>
+  </div>
+  <div>
+    <input id="comment_box"  type="text" name="task" placeholder="Comment box" data-task_id="<%=@task.id%>"/>
+  </div>
+</div>

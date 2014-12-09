@@ -1,0 +1,11 @@
+<%form_for :shares_form do |s|%>
+<table>
+<% @users.each do |user| %>
+     <tr>
+      <td> <%=user.name%></td>
+      <td  style="padding-left: 30px"><%= check_box_tag "share_names[]",user.id,@assigned_users.include?(user.id)%></td>
+     </tr>
+  <% end %>
+    <%= javascript_include_tag "modal_jss" %>
+</table>
+<% end %>

@@ -3,18 +3,22 @@
   <title></title>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag "todo_css"%>
+  <%= javascript_include_tag "jquery-2.1.1" %>
+  <%= javascript_include_tag "icheck" %>
+  <%= stylesheet_link_tag "green"%>
+  <%= stylesheet_link_tag "bootstrap"%>
 </head>
 <body>
-<%= javascript_include_tag "jquery-2.1.1" %>
 <%= javascript_include_tag "script" %>
     <div id="task_body">
       <%unless flash[:notice_login].nil?%>
              <div class="note" onclick="delete_flash_msg()" id="note"><p id="flash_msg"> <%=flash[:notice_login] %></p></div>
       <%end%>
+      <img id="logo_application"src="/images/Logo.png" width="32" />
         <div id="hedder_div">
-            <img id="logo_application"  src="/images/Logo.png" width="32" />
+            <input type="text" id="search_box" placeholder="Search">
             <div id="logout"><%= link_to "Logout", :controller=>"users",:action=>"logout" %></div>
-            <div id="name"> <%= @user.name %></div>
+            <div id="name"><%=@user.name%><span class="caret"></span></div>
                 <div id="name_div" class="bubble">
                     <ul>
                     <li style="color:#999999"><%= @user.email %></li>
@@ -22,7 +26,13 @@
                     </ul>
                 </div>
         </div>
-        <%= yield %>
+      <div>
+
+      </div>
+      <div>
+                <%= yield %>
+      </div>
+
     </div>
 </body>
 </html>

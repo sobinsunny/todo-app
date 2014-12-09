@@ -4,9 +4,12 @@
   <input id="textbox1"  type="text" name="task" placeholder="Add your todo entry  Hit 'Enter' to post "/>
   </p>
 </div>
+
+  <div class="btn-group" role="group" aria-label="...">
+    <button   id="active" style="width:74px;height:29px;" type="button" class="btn btn-default"><a href="/tasks?status=0">Active</a></button>
+    <button  id ="inactive "style="margin-left:-16px; width:74px;height:29px;" type="button" class="btn btn-default"><a href="/tasks?status=1">Inactive</a></button>
+  </div>
 <div id="content_area">
-  <%= render :partial => "taskcontent"  %>
+   <%= render :partial => "taskcontent"  %>
 </div>
-
-
 

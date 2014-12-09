@@ -1,16 +1,14 @@
 require 'will_paginate'
 
+
 class TasksController < ApplicationController
   before_filter :check_id
 
   def create
-  @tasks=Task.all
-  @task = Task.new(params[:task])
-  @task[:task_order]=@tasks.size
-  @task[:status]=0;
-  @task[:users_id]=session[:user_id]
+      @task = Task.new(params[:task])
+      @task[:status]=0;
+      @task[:user_id]=session[:user_id]
     if @task.save
-      flash[:notice] = 'You successfully created a task !'
       render_tasks()
     else
        flash[:notice] = @task.errors
@@ -20,50 +18,48 @@ class TasksController < ApplicationController
   end
 
   def index
-
-      @u_id=session[:user_id]
-      @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:conditions => "users_id=#{@u_id}",:order=>"task_order DESC")
-
+    @u_id=session[:user_id]
+    if (params[:status]=="1")
+        @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=1",@u_id],:order=>"tags.task_order DESC")
+    else
+        @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=0",@u_id],:order=>"tags.task_order DESC")
+    end
   end
-
   def destroy
       @u_id=session[:user_id]
       @d_id=params[:id]
       Task.destroy(@d_id)
-      flash[:notice] = 'You Task is deleted'
       render_tasks()
   end
 
   def new
-    @user=User.first
-    @task = Task.new
+      @user=User.first
+      @task = Task.new
   end
 
   def changeorder_down
-    @u_id=session[:user_id]
-    current_task_id=params[:task][:task_id].to_i
-    current_task_row=Task.find(current_task_id)
-    current_task_order=current_task_row.task_order
-    next_task=Task.find(:first,:conditions =>"task_order < #{current_task_order}", :order=>"task_order DESC")
-    next_task_order=next_task.task_order
-    next_task_id=next_task.id
-    Task.find(current_task_id).update_attributes(:task_order=>next_task_order)
-    Task.find(next_task_id).update_attributes(:task_order=>current_task_order)
-    flash[:notice] = 'You successfully moved your task priority down.'
-    render_tasks()
+      @u_id=session[:user_id]
+      current_task_id=params[:task][:task_id].to_i
+      current_task_row=Tag.find(:first,:conditions=>{:task_id=>current_task_id,:user_id=>@u_id})
+      current_task_order=current_task_row.task_order
+      next_task=Tag.find(:last,:conditions=>"task_order < #{current_task_order} and user_id=#{@u_id}")
+      next_task_order=next_task.task_order
+      next_task_id=next_task.id
+      current_task_row.update_attributes(:task_order=>next_task_order)
+      next_task.update_attributes(:task_order=>current_task_order)
+      render_tasks()
   end
   def changeorder_up
-    @u_id=session[:user_id]
-    current_task_id=params[:task][:task_id].to_i
-    current_task_row=Task.find(current_task_id)
-    current_task_order=current_task_row.task_order
-    next_task=Task.find(:last,:conditions =>"task_order > #{current_task_order}", :order=>"task_order DESC")
-    next_task_order=next_task.task_order
-    next_task_id=next_task.id
-    Task.find(current_task_id).update_attributes(:task_order=>next_task_order)
-    Task.find(next_task_id).update_attributes(:task_order=>current_task_order)
-    flash[:notice] = 'You successfully moved your task priority up.'
-    render_tasks()
+      @u_id=session[:user_id]
+      current_task_id=params[:task][:task_id].to_i
+      current_task_row=Tag.find(:first,:conditions=>{:task_id=>current_task_id,:user_id=>@u_id})
+      current_task_order=current_task_row.task_order
+      next_task=Tag.find(:first,:conditions=>"task_order > #{current_task_order} and user_id=#{@u_id}")
+      next_task_order=next_task.task_order
+      next_task_id=next_task.id
+      current_task_row.update_attributes(:task_order=>next_task_order)
+      next_task.update_attributes(:task_order=>current_task_order)
+      render_tasks()
   end
 
   def update
@@ -71,29 +67,126 @@ class TasksController < ApplicationController
     t=Task.find(params[:id])
     if t.status==0
        Task.find(params[:id]).update_attributes(:status=>1)
-       flash[:notice] = 'You Task is completed'
+       @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=0",@u_id],:order=>"tags.task_order DESC")
+       @comment= Comment.new()
+       @comment[:task_id]=params[:id]
+       @comment[:user_id]=session[:user_id]
+       @comment[:body]="Status  of the task changed to <span class='c'>Done</span>"
+       @comment.save
+       render :partial => "taskcontent"
     else
        Task.find(params[:id]).update_attributes(:status=>0)
-       flash[:notice] = 'You Task is in-completed'
+       @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=1",@u_id],:order=>"tags.task_order DESC")
+       render :partial => "taskcontent"
     end
-    render_tasks()
   end
-  private
-
-  def check_id
-      if session[:user_id].nil?
-        redirect_to :controller=>'users',:action=>"login"
-      else
-        @user=User.find(session[:user_id])
+  def show
         @u_id=session[:user_id]
-        @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:conditions => "users_id=#{@u_id}",:order=>"task_order DESC")
+        @user=User.find(params[:user_id])
+        @task=Task.find(params[:id])
+        @task_id=@task.id;
+        @users=User.all
+        @assigned_users=Tag.find_all_by_task_id(params[:id]).collect(&:user_id)
+        @share_check=Task.find(:all,:conditions=>"id=#{params[:id]}")
+        @shares=Tag.find(:all,:conditions=>"task_id=#{params[:id]}")
+        @comments=@task.comments
+  end
+  def update_task_progess
+      @u=Task.find(params[:task][:task_id].to_i)
+      @current_task_progres=params[:task][:task_range].to_i
+      @previous_task_progres=@u.task_progress
+    if @current_task_progres>@previous_task_progres and @u.status==0
+      if @u.update_attributes(:task_progress=>@current_task_progres)
+        @comment= Comment.new()
+        @comment[:task_id]=params[:task][:task_id].to_i
+        @comment[:user_id]=session[:user_id]
+        @comment[:body]="Task has been update from <span class='c'>#{@previous_task_progres}%</span> to <span class='c'> #{@u.task_progress}%</span> "
+          if @comment.save
+            @comments=Comment.find_all_by_task_id(params[:task][:task_id].to_i)
+            render :partial => "tasks/commentlist"
+          end
       end
-    return true
+    else
+          @comments=Comment.find_all_by_task_id(params[:task][:task_id].to_i)
+          render :partial => "tasks/commentlist"
+          flash[:notice_login] = 'You Cant reduce the task progress !'
+
+    end
+
   end
-     def render_tasks
-     @tasks=Task.all
-     @u_id=session[:user_id]
-     @tasks=Task.paginate(:page=>params[:page],:per_page=>50,:conditions => "users_id=#{@u_id}",:order=>"task_order DESC")
-     render :partial => "taskcontent"
+
+
+
+  def share_task
+    @share_user_id=params[:share_names]
+    @name_size=@share_user_id.length;
+    @delete_status=Tag.destroy_all(:task_id => params[:task_id])
+      if @delete_status
+          for i in 0..(@name_size-1)
+              @tag=Tag.new()
+              @tag[:user_id]=@share_user_id[i]
+              @tag[:task_id]=params[:task_id]
+              @tag[:task_order]=params[:task_id]
+              @tag.save
+          end
+            @shares=Tag.find(:all,:conditions=>"task_id=#{params[:task_id]}")
+            render :partial => "sharenames"
+      end
+
+    end
+    # @tag=Tag.new()
+    # @tag[:user_id]=@share_user_id
+    # @tag[:task_id]=@task_id
+    # @tag[:task_order]=params[:task][:task_id].to_i
+    # if @tag.save
+    #
+    #             @shares=Tag.find(:all,:conditions=>"task_id=#{params[:task][:task_id].to_i}")
+    #             render :partial => "sharenames"
+    #
+    #   end
+
+
+
+
+
+  def search_task
+    search_keyword=params[:task][:task_name].to_s
+    if search_keyword
+    @tasks =Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and task  LIKE ?",@u_id ,"%#{search_keyword}%"],:order=>"tags.task_order DESC")
+    render :partial => "taskcontent"
+    else
+      @tasks=Task.all.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? ",@u_id],:order=>"tags.task_order DESC")
+    end
   end
+
+
+  def share_name_display
+    @users=User.all
+    @assigned_users=Tag.find_all_by_task_id(params[:task][:task_id]).collect(&:user_id)
+    render :partial => "sharetaskmodal"
+  end
+
+
+
+
+
+
+
+private
+
+def check_id
+  if session[:user_id].nil?
+    redirect_to :controller=>'users',:action=>"login"
+  else
+    @user=User.find(session[:user_id])
+    @u_id=session[:user_id]
+    @tasks=Task.all.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=0",@u_id],:order=>"tags.task_order DESC")
+  end
+return true
+end
+   def render_tasks
+       @u_id=session[:user_id]
+       @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=0",@u_id],:order=>"tags.task_order DESC")
+       render :partial => "taskcontent"
+   end
 end
