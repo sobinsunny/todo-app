@@ -2,10 +2,15 @@
 <%= stylesheet_link_tag "todo_css"%>
 <%= javascript_include_tag "taskscript" %>
 <%= javascript_include_tag "script" %>
+<%= javascript_include_tag "bootstrap" %>
 
 <%unless flash[:notice_login].nil?%>
-    <div style="width:606px" class="note" id="note" onclick="delete_flash_msg()"><p id="flash_msg"> <%=flash[:notice_login] %></p></div>
+<div class="alert alert-success">
+ <a class="close" data-dismiss="alert">×</a>
+     <%=flash[:notice_login] %>
+</div>
 <%end%>
+
 
 <div id="content_align">
     <img id="logo"  src="/images/Logo.png" width="32" />

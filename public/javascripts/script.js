@@ -2,12 +2,15 @@ $(document).ready(function() {
     $("#name_div").hide();
     $(".pagination").hide();
     $(".modal").hide();
+    $('#search_image').hide();
     close = document.getElementById("close");
     setTimeout(function(){
         $('#note').fadeOut();// or fade, css display however you'd like.
     }, 1000);
-
-
+    $('#textbox1').click(function(){
+        $('#img_textbox').hide();
+        $('#textbox1').css({"padding":"10px"});
+    });
     $("#name_div").hide();
     $("#textbox1").keypress(function (e) {
         if (e.keyCode == 13) {
@@ -72,6 +75,7 @@ $(document).ready(function() {
     $("#search_box").keypress(function (e) {
         if (e.keyCode == 13) {
             var task_name = $(this).val()
+            $('#search_image').show();
             if (task_name.length == 0)
             {
                 return false;
@@ -88,6 +92,7 @@ $(document).ready(function() {
                             }
                         },
                         success: function (data, textStatus, jqXHR) {
+                            $('#search_image').hide();
                             $("#content_area").html(data);
                             $("#textbox1").val("");
                             $(".pagination").hide();
@@ -116,42 +121,6 @@ $(document).ready(function() {
 
 });
 
-function delete_flash_msg()
-    {
-        setTimeout(function(){
-        $('#note').hide();
-    }, 5000);
-}
-
-
-
-
-
-
-
-
-
-
-function outputUpdate(task_id,vol) {
-    document.querySelector('#volume').value = vol;
-    var formURL = "   /tasks/update_task_progess"
-    $.ajax(
-        {
-            url: formURL,
-            type: "POST",
-            data: {
-                task: {
-                    task_range: vol,
-                    task_id:task_id
-                }
-            },
-            success: function (data, textStatus, jqXHR) {
-                $("#comment_partial_div").html(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-            }
-        });
-}
 function share_task(task_id) {
     var user_id_share=$('form').serialize()+ '&task_id=' + task_id
     var formURL = "/tasks/share_task"

@@ -1,5 +1,8 @@
-<p>
-  <% @shares.each do |s| %>
-      <%=s.user.name if s.user%>,
-  <% end %>
+<% shared_with = [] %>
+<% @shares.each do |s| %>
+    <% shared_with.push(s.user.name) if (s.user and (s.user.name!=@user.name))%>
+<% end %>
+
+<span id="comment_span"> Shared with: </span>
+<%= shared_with.join(" ,  ")%>
 </p>

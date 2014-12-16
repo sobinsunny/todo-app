@@ -2,38 +2,16 @@ $(".pagination").hide();
 $(".delete_div").hide();
 $("#name_div").hide();
 $(".modal").hide();
+
 $(document).ready(function() {
     upadate_orderchange_button();
     $("#name_div").hide();
     setTimeout(function(){
-        $('#note').fadeOut();// or fade, css display however you'd like.
+        $('.alert').fadeOut();// or fade, css display however you'd like.
     }, 5000);
-    $( "#slider" ).slider({
-        change: function( event, ui ) {
-            var vol = $( "#slider" ).slider( "option", "value" );
-            var task_id=$(this).data("id")
-            var formURL = "   /tasks/update_task_progess"
-            $.ajax(
-                {
-                    url: formURL,
-                    type: "POST",
-                    data: {
-                        task: {
-                            task_range: vol,
-                            task_id:task_id
-                        }
-                    },
-                    success: function (data, textStatus, jqXHR) {
-                        $("#comment_partial_div").html(data);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                    }
-                });
-        }
-    });
-var p_value=$('#slider').data('progress_id')
 
-var $slider = $("#slider");
+    var p_value=$('#slider').data('progress_id')
+    var $slider = $("#slider");
     if ($slider.length > 0) {
         $slider.slider({
             min: 5,
@@ -43,6 +21,38 @@ var $slider = $("#slider");
             range: "min"
         });
     }
+      var WaitCount=0;
+    $("#slider").slider({
+        change: function( event, ui ) {
+            var vol = $( "#slider" ).slider( "option", "value" );
+            var task_id=$(this).data("id")
+            WaitCount++;
+             setTimeout(function(){
+                  WaitCount--;
+                    if(WaitCount<=0) {
+                        var formURL = "   /tasks/update_task_progess"
+                        $.ajax(
+                            {
+                                url: formURL,
+                                type: "POST",
+                                data: {
+                                    task: {
+                                        task_range: vol,
+                                        task_id:task_id
+                                    }
+                                },
+                                success: function (data, textStatus, jqXHR) {
+                                    $("#comment_partial_div").html(data);
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+					}
+				});
+			}
+		}, 5000);
+
+	  }
+	});
+
 });
 
 var progres_val=$(this).data("progress_id");
@@ -98,13 +108,68 @@ function image_done(task_id,user_id) {
 
             $("#content_area").html(data);
             $(".pagination").hide();
-            scroll_fun();
+            
         },
         error: function (jqXHR, textStatus, errorThrown) {
         }
     });
 
 }
+
+
+
+function image_comment_ok(task_id) {
+    task_name=task_id
+    user_id=$(this).data("user_id");
+    var formURL = "/users/"+user_id+"/tasks/"+task_name;
+    $.ajax(
+        {
+            url: formURL,
+            type: "PUT",
+            data: {
+                task : {
+                    status_id : task_name
+                }
+            },
+            success: function (data, textStatus, jqXHR) {
+                $(".pagination").hide();
+                $('#ok').removeClass('img_ok');
+                $('#ok').addClass('img_done');
+                location.reload();
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+}
+
+function image_comment_done(task_id,user_id) {
+    task_name=task_id
+    var formURL = "/tasks/"+task_name;
+
+    $.ajax(
+        {
+            url: formURL,
+            type: "PUT",
+            data: {
+                task : {
+                    status_id : task_name
+                }
+            },
+            success: function (data, textStatus, jqXHR) {
+
+                $(".pagination").hide();
+                $('#ok').removeClass('img_done');
+                $('#ok').addClass('img_ok');
+                location.reload();
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+
+}
+
 function image_up(task_id)
 {
     task_name=task_id

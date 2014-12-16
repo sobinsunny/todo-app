@@ -5,7 +5,6 @@ class Task < ActiveRecord::Base
   has_many:tags, :dependent => :destroy
   after_create :create_tag
 
-
   private
        def create_tag
          @tag=Tag.new()

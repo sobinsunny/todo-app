@@ -40,10 +40,10 @@ class UsersController < ApplicationController
     if request.post?
       if @user.update_attributes(params[:user])
         session.delete(:user_id)
-
         redirect_to login_users_path
+         flash[:notice_login] =  "Password is succesfully Changed"
       else
-      puts @user.errors.full_messages
+       flash[:notice_login] =  @user.errors.full_messages
     end
     end
   end

@@ -1,9 +1,10 @@
 <% @comments.each do |c| %> <p>
-    <div class="div_task" style="margin-bottom:-12px;margin-top:-10px; padding: 20px;width: 593px">
+    <div class="div_task" style="margin-bottom:-12px;margin-top:-10px; padding: 20 20 0;width: 592px;">
       <p style="margin-bottom:1px;">
             </b> <%= c.body %> </p>
       <p style="margin-bottom:1px;">
-            <p><%=h c.user.name%> </p><p style="margin-bottom:1px;word-wrap: break-word;color:#ccc;font-size: 12px;margin-bottom:8px;"> on <%=(c.created_at).strftime("%I.%P,  %d %b %Y")%>
-      </p>
+              <p style="font-size: 16px"><%=h c.user.name%> <span id="comment_span"> on <%=(c.created_at).strftime("%I.%P,  %d %b %Y")%></span></p>
+              
     </div>
+    <div id="div_footer"></div>
 <% end %>

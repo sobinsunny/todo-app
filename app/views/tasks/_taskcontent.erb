@@ -3,15 +3,12 @@
 <% @tasks.each do |task| %>
     <div id="task_<%=task.id %>" class="div_task" >
           <div id="dispaly_text_div">
-            <p id="c"><%=link_to "#{task.task}",user_task_path(@u_id,task),:style => "color: #34495e"%>
+            <p id="c"><%=link_to "#{task.task}",user_task_path(@u_id,task),:style => "font-size: 16px;color: #34495e"%>
               <br>
             <p style="word-wrap: break-word;color:#ccc;font-size: 12px;margin-bottom:8px;"> By <%= (task.user.name)%></p>
             </p>
             <p style="word-wrap: break-word;color:#ccc;font-size: 12px;margin-bottom:8px;"><%=(task.created_at).strftime("%I.%P,  %d %b %Y")%></p>
             <p>
-            <!--<div class="progress progress-striped active">-->
-              <!--<div class="bar" style="width: <%#=task.task_progress %>%;"></div>-->
-            <!--</div>-->
             </p>
           </div>
           <div id="icon_img">
