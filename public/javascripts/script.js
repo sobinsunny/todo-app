@@ -3,6 +3,7 @@ $(document).ready(function() {
     $(".pagination").hide();
     $(".modal").hide();
     $('#search_image').hide();
+    upadate_last_div_change_button();
     close = document.getElementById("close");
     setTimeout(function(){
         $('#note').fadeOut();// or fade, css display however you'd like.
@@ -42,6 +43,14 @@ $(document).ready(function() {
         }
 
     });
+    function upadate_last_div_change_button()
+    {
+        $( ".div_footer" ).css( "display", "block" );
+        $( ".div_footer:last" ).css( "display", "none" );
+        $( ".div_task" ).css( "border", "none" );
+        $( ".div_task:last" ).css( "border-bottom", "1px solid #cccccc" );
+    }
+
     $("#comment_box").keypress(function (e) {
         if (e.keyCode == 13) {
             var comment = $(this).val()
@@ -63,6 +72,7 @@ $(document).ready(function() {
                         },
                         success: function (data, textStatus, jqXHR) {
                             $("#comment_partial_div").html(data);
+                            upadate_last_div_change_button();
                             $("#comment_box").val("");
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -88,13 +98,14 @@ $(document).ready(function() {
                         type: "POST",
                         data: {
                             task: {
+                                
                                 task_name: task_name
                             }
                         },
                         success: function (data, textStatus, jqXHR) {
                             $('#search_image').hide();
+                            window.location = '/tasks/index?username=sobin';
                             $("#content_area").html(data);
-                            $("#textbox1").val("");
                             $(".pagination").hide();
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -102,6 +113,10 @@ $(document).ready(function() {
                     });
             }
         }
+
+
+
+
 
     });
     $("#name").click(function(event) {

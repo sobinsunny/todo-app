@@ -9,50 +9,6 @@ $(document).ready(function() {
     setTimeout(function(){
         $('.alert').fadeOut();// or fade, css display however you'd like.
     }, 5000);
-
-    var p_value=$('#slider').data('progress_id')
-    var $slider = $("#slider");
-    if ($slider.length > 0) {
-        $slider.slider({
-            min: 5,
-            max: 100,
-            value: p_value,
-            orientation: "horizontal",
-            range: "min"
-        });
-    }
-      var WaitCount=0;
-    $("#slider").slider({
-        change: function( event, ui ) {
-            var vol = $( "#slider" ).slider( "option", "value" );
-            var task_id=$(this).data("id")
-            WaitCount++;
-             setTimeout(function(){
-                  WaitCount--;
-                    if(WaitCount<=0) {
-                        var formURL = "   /tasks/update_task_progess"
-                        $.ajax(
-                            {
-                                url: formURL,
-                                type: "POST",
-                                data: {
-                                    task: {
-                                        task_range: vol,
-                                        task_id:task_id
-                                    }
-                                },
-                                success: function (data, textStatus, jqXHR) {
-                                    $("#comment_partial_div").html(data);
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-					}
-				});
-			}
-		}, 5000);
-
-	  }
-	});
-
 });
 
 var progres_val=$(this).data("progress_id");
@@ -115,8 +71,6 @@ function image_done(task_id,user_id) {
     });
 
 }
-
-
 
 function image_comment_ok(task_id) {
     task_name=task_id
@@ -224,33 +178,6 @@ function image_down(task_id)
     });
 
 }
-$(function scroll_fun(){
-    var $container = $('#content_area');
-    $container.imagesLoaded(function(){
-        $container.masonry({
-            itemSelector: 'div_task',
-            columnWidth: 100
-        });
-    });
-    $container.infinitescroll({
-        navSelector  : '#page-nav',    // selector for the paged navigation
-        nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
-        itemSelector : '.div_task',     // selector for all items you'll retrieve
-        loading: {
-            finishedMsg: 'No more pages to load.'
-
-        }
-    },
-    function( newElements ) {
-        var $newElems = $( newElements ).css({ opacity: 0 });
-        $newElems.imagesLoaded(function(){
-            $newElems.animate({ opacity: 1 });
-            $(".delete_div").hide();
-            upadate_orderchange_button();
-            $container.masonry( 'appended', $newElems, true );
-        });
-    });
-});
 function delete_req(id)
 {
     $("#delete_" + id).show();

@@ -5203,9 +5203,9 @@ input[type="submit"].btn.btn-mini {
 .modal {
   position: fixed;
   top: 10%;
-  left: 50%;
+  left: 47%;
   z-index: 1050;
-  width: 560px;
+  width: 634px;
   font-family:open sans ;
   font-weight: 100;
   margin-left: -280px;

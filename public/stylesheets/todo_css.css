@@ -1,7 +1,7 @@
 
 .div_task{
     width: 575px;
-    border: 1px solid #CCCCCC;
+    border: 1px solid #CCCCCC !important;
     background-color:#f4f4f4;
     min-height: 60px;
     padding:30px;
@@ -9,14 +9,15 @@
     word-wrap: break-word;
     font-family: 'Open Sans';
     border-radius: 3px;
-    z-index : 1;
+    z-index : 2;
 }
-#div_footer{
+.div_footer{
     width: 582px;
     height: 2px;
     align-self: center;
-    border-bottom: 1.5px solid #CCCCCC;
+    border-bottom: 2px solid #CCCCCC;
     margin-left:22px;
+    z-index: 3;
 }
 
 #dispaly_text_div{
@@ -68,7 +69,6 @@ body a{
 color:#34495e !important;
 text-decoration: none;
 word-wrap: break-word;
-
 }
 
 #login_panel,#signup_panel{
@@ -715,7 +715,7 @@ span{
     margin-bottom: 20px;
 }
 #comment_partial_div{
-    border:1px solid #cccccc;
+    border:0px solid #cccccc;
     width:633px !important;
     z-index: 1;
 }
@@ -728,7 +728,7 @@ span{
     left: 50%;
 }
 body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "open sans";
 	font-size: 13px;
 	/* for demo only */
 	margin: 8px;

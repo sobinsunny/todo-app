@@ -1,20 +1,17 @@
 
-<%= javascript_include_tag "taskscript" %>
-<%= javascript_include_tag "bootstrap" %>
 <%= stylesheet_link_tag "bootstrap" %>
 <%= stylesheet_link_tag "todo_css" %>
 <%= javascript_include_tag "modal_jss" %>
 <%= javascript_include_tag "taskscript" %>
-<%= javascript_include_tag "bootstrap" %>
 <%= javascript_include_tag "flat-ui" %>
 <%= stylesheet_link_tag "bootstrap" %>
 <%= stylesheet_link_tag "flat-ui" %>
 <%= javascript_include_tag "taskscript" %>
-<%= javascript_include_tag "bootstrap" %>
 <%= stylesheet_link_tag "bootstrap" %>
 <%= javascript_include_tag "taskscript" %>
 <%= javascript_include_tag "modal_jss" %>
-<%= javascript_include_tag "update" %>
+<%= javascript_include_tag "bootstrap" %>
+<%= javascript_include_tag "slider" %>
 <script>
     $(function() {
         $( "#slider" ).slider();
@@ -73,6 +70,11 @@
       <%if(@task.status==0) %>
           <button  id="done" class="img_done" onclick="image_comment_done(<%=@task.id %>,<%=@task.user_id%>)" data-id=<%=@task.id %> data-user_id=<%=@task.user_id%> style="margin-top: -9;margin-left: 564px;"> </button>
       <%else%>
+    <script>
+      $( "#slider" ).slider({
+             disabled: true
+      });
+    </script>
           <button id="ok"  class="img_ok" onclick="image_comment_ok(<%=@task.id %>,<%=@task.user_id %>)" data-id=<%=@task.id %> data-user_id=<%=@task.user_id%> style="margin-top: -9;margin-left: 564px;"> </button>
       <%end%>
     </div>

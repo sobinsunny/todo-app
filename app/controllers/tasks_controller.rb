@@ -96,7 +96,6 @@ def show
       @comments=@task.comments
 end
 def update_task_progess
-
   @current_task_progres=params[:task][:task_range].to_i
   @u=Task.find(params[:task][:task_id].to_i)
   @previous_task_progres=@u.task_progress
@@ -145,7 +144,7 @@ def search_task
   if search_keyword
   @tasks =Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and task  LIKE ?",@u_id ,"%#{search_keyword}%"],:order=>"tags.task_order DESC")
   sleep(3)
-  render :partial => "taskcontent"
+  render :partial => "/tasks/taskcontent"
   else
     sleep(3)
     @tasks=Task.all.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? ",@u_id],:order=>"tags.task_order DESC")
