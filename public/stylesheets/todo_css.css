@@ -1,6 +1,7 @@
 
 .div_task{
     width: 575px;
+    border: 1px solid #CCCCCC;
     background-color:#f4f4f4;
     min-height: 60px;
     padding:30px;
