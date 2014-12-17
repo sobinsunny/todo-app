@@ -10,6 +10,15 @@ $(document).ready(function() {
             range: "min"
         });
     }
+
+     function upadate_last_div_change_button()
+    {
+        $( "hr" ).css( "display", "block" );
+        $( "hr:last" ).css( "display", "none" );
+        $( "div_task_comment:last" ).css( "border-bottom", "1px solid #ccccc" );
+    }
+
+
         var WaitCount=0;
 	$( "#slider" ).slider({
         change: function( event, ui ) {
@@ -32,6 +41,8 @@ $(document).ready(function() {
                                 },
                                 success: function (data, textStatus, jqXHR) {
                                     $("#comment_partial_div").html(data);
+                                    upadate_last_div_change_button()
+
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
 					}

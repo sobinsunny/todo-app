@@ -71,7 +71,7 @@ $(document).ready(function() {
                         },
                         success: function (data, textStatus, jqXHR) {
                             $("#comment_partial_div").html(data);
-                            upadate_last_div_change_button();
+                            upadate_last_div_change_button()
                             $("#comment_box").val("");
                         },
                         error: function (jqXHR, textStatus, errorThrown) {

@@ -1,5 +1,6 @@
 
 .div_task{
+    overflow: auto;
     width: 575px;
     border: 1px solid #CCCCCC !important;
     background-color:#f4f4f4;
@@ -50,6 +51,7 @@ p #c{
     padding:0px;
     margin: 1px !important;
     min-height: 8px;
+    width:75%;
     overflow-x: auto;
     min-width:40px;
 
@@ -79,10 +81,13 @@ body{
 body a{
 color:#34495e !important;
 text-decoration: none;
- min-height: 16px !important;
+width:200px;
+min-height: 16px !important;
 word-wrap: break-word;
 }
-
+#ui-slider-range a{
+    dispaly: none;
+}
 #login_panel,#signup_panel{
     margin-right:355px;
     margin-top: 26px;
@@ -188,10 +193,10 @@ a:link {
     color:red;
 }
 .delete_div{
-    width:572px;
+    width:573px;
     border-width: 1px;
     border-color: red;
-    height:58px;
+    height:84px;
     margin-top:-30px;
     margin-left:-30px;
     background-color:white;
@@ -366,7 +371,7 @@ p{
     outline:none;
 }
 .img_done{
-    background: url('/images/iconsprite.png') no-repeat -143px 1px;
+    background: url('/images/iconsprite.png') no-repeat -143px 0px;
     width: 37px;
     height: 37px;
     z-index:1;
@@ -386,7 +391,7 @@ p{
 .img_up{
 
     background: url('/images/iconsprite.png') no-repeat -48px -13px;
-    width: 12px;
+    width: 15px;
     height: 9px;
     z-index:1;
     position: absolute;
@@ -402,7 +407,7 @@ p{
 .img_down{
 
     background: url('/images/iconsprite.png') no-repeat -12px -13px;
-    width: 12px;
+    width: 15px;
     height: 9px;
     z-index:1;
     position: absolute;
@@ -672,6 +677,7 @@ ul{
 .c{
     font-size: 18px;
     color:green;
+    
 }
 #active,#inactive {
     background-color:#f4f4f4;
@@ -813,7 +819,7 @@ p {
 .alert .close {
   position: relative;
   top: -2px;
-  right: -21px;
+  right: -208px;
   line-height: 18px;
 }
 .alert-success {
@@ -854,4 +860,7 @@ hr {
     background-color: #ccc;
     margin: 0 ;
     padding: 0 !important;
+}
+#dispaly_text_div{
+    width: 72%;
 }
