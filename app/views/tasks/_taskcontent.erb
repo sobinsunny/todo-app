@@ -28,7 +28,7 @@
         <div class="delete_div" id="delete_<%= task.id %>">
           <p id="delete_text">Are you sure you want to delete this entry ?</p>
           <div class="pull-right">
-            <button id="delete_task "  style="margin-top: -182px;width: 79px;" onclick="delete_task(<%=task.user_id%>,<%= task.id %>)">Yes</button>
+            <button id="delete_task "  style="margin-top: -182px;width: 79px;background-color: white;border-style: none;border: 1px solid #cccccc;" onclick="delete_task(<%=task.user_id%>,<%= task.id %>)">Yes</button>
             <button id="cancel_delete" onclick="cancel_delete(<%=task.id %>)">No</button>
           </div>
         </div>

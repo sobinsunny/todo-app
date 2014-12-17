@@ -17,12 +17,11 @@ $(document).ready(function() {
         $( "hr:last" ).css( "display", "none" );
         $( "div_task_comment:last" ).css( "border-bottom", "1px solid #ccccc" );
     }
-
-
         var WaitCount=0;
 	$( "#slider" ).slider({
         change: function( event, ui ) {
             var vol = $( "#slider" ).slider( "option", "value" );
+            $('#task_progres_count').html(vol);
             var task_id=$(this).data("id")
             WaitCount++;
              setTimeout(function(){

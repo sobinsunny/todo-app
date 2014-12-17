@@ -284,6 +284,7 @@ button#delete_task {
 }
 #delete_text{
     vertical-align: middle;
+    margin-top: 32px;
     font-size:16px;
     font-family: 'open sans';
 }
@@ -849,9 +850,8 @@ p {
 .alert-block p + p {
   margin-top: 5px;
 }
-.pagination img{
-   text-self: center;
-   left:50%;
+#infscr-loading{
+   text-align: center;
 }
 hr {
     display: block;
@@ -863,4 +863,15 @@ hr {
 }
 #dispaly_text_div{
     width: 72%;
+}
+#task_progres_count{
+    height: 20px;
+    z-index:2;
+    color:black;
+    margin-left:50%;
+    background-color: transparent;
+    width: 40px;
+    position:absolute;
+    text-align: center;
+    font-weight: bold;
 }
