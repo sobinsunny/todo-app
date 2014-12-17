@@ -13,16 +13,18 @@
 </div>
 
 <div >
-  <%if @tasks.first.status==0%>
-      <a id="active"  style="background-color: #e8e8e8" href="/tasks?status=0">Active</a>
+  <% unless @tasks.first.nil? %>
+  <%if @tasks.first.status==0 %>
+      <a id="active" data-status=<%=@tasks.first.status %>  style="background-color: #e8e8e8" href="/tasks?status=0">Active</a>
       <a id="inactive" href="/tasks?status=1">Inactive</a>
   <%elsif @tasks.first.status==1%>
-      <a id="active"  href="/tasks?status=0">Active</a>
+      <a id="active"  data-status=<%=@tasks.first.status %> href="/tasks?status=0">Active</a>
       <a id="inactive" style="background-color: #e8e8e8" href="/tasks?status=1">Inactive</a>
   <%else%>
       <a id="active"  style="background-color: #e8e8e8" href="/tasks?status=0">Active</a>
       <a id="inactive" href="/tasks?status=1">Inactive</a>
   <%end%>
+<%end%>
 </div>
 <div id="content_area">
   <%= render :partial => "taskcontent"  %>

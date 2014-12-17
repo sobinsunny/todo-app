@@ -45,10 +45,9 @@ $(document).ready(function() {
     });
     function upadate_last_div_change_button()
     {
-        $( ".div_footer" ).css( "display", "block" );
-        $( ".div_footer:last" ).css( "display", "none" );
-        $( ".div_task" ).css( "border", "none" );
-        $( ".div_task:last" ).css( "border-bottom", "1px solid #cccccc" );
+        $( "hr" ).css( "display", "block" );
+        $( "hr:last" ).css( "display", "none" );
+        $( "div_task_comment:last" ).css( "border-bottom", "1px solid #ccccc" );
     }
 
     $("#comment_box").keypress(function (e) {
@@ -84,41 +83,21 @@ $(document).ready(function() {
     });
     $("#search_box").keypress(function (e) {
         if (e.keyCode == 13) {
+            var status=0;
+            var status= $('#active').data("status")
             var task_name = $(this).val()
-            $('#search_image').show();
+            
             if (task_name.length == 0)
             {
                 return false;
             }
             else {
-                var formURL = "/tasks/search_task"
-                $.ajax(
-                    {
-                        url: formURL,
-                        type: "POST",
-                        data: {
-                            task: {
-                                
-                                task_name: task_name
-                            }
-                        },
-                        success: function (data, textStatus, jqXHR) {
-                            $('#search_image').hide();
-                            window.location = '/tasks/index?username=sobin';
-                            $("#content_area").html(data);
-                            $(".pagination").hide();
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                        }
-                    });
+               window.location = '/tasks?search='+task_name+'&status='+status;
             }
         }
+     });
 
 
-
-
-
-    });
     $("#name").click(function(event) {
         event.stopPropagation();
         $("#name_div").show();

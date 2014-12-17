@@ -58,14 +58,14 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
        <div id="task_data">
-      <p style="font-size:24px;margin-bottom: 10px">
+      <p style="font-size:24px;margin-bottom: 10px;font-weight:400 ;font-family: 'open sans' !important;;">
         <%=@task.task %>
        
       </p>
-      <p style="word-wrap: break-word;color:#ccc;font-size: 14px;margin-bottom:-5px;"> <span>  <%= (@task.user.name)%><br></span>  <%=(@task.created_at).strftime("%I.%P,%d %b %Y")%></p>
+      <p style="font-family: 'open sans' !important;word-wrap: break-word;color:#ccc;font-size: 14px;margin-bottom:-5px;"> <span>  <%= (@task.user.name)%><br></span>  <%=(@task.created_at).strftime("%I.%P,%d %b %Y")%></p>
       <button  style="margin-top: -90px;margin-left: 585px;" data-toggle="modal" data-target="#myModal" class="img_close"></button>
     </div>
-    <p style="font-size:16px">Task completion</p>
+    <p style="font-size:16px;font-family: 'open sans' !important;">Task completion</p>
     <div id="slider" data-id="<%= params[:id] %>" data-progress_id="<%=@task.task_progress%>" style="height: 20px;border-radius: 0px;width: 92%">
       <%if(@task.status==0) %>
           <button  id="done" class="img_done" onclick="image_comment_done(<%=@task.id %>,<%=@task.user_id%>)" data-id=<%=@task.id %> data-user_id=<%=@task.user_id%> style="margin-top: -9;margin-left: 564px;"> </button>

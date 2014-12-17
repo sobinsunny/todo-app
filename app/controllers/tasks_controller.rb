@@ -20,11 +20,21 @@ end
 
 def index
   @u_id=session[:user_id]
-  if (params[:status]=="1")
-    @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=1",@u_id],:order=>"tags.task_order DESC")
+  if params[:search] 
+      search_keyword=params[:search]
+      if params[:status]=='1'
+        @tasks =Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and   status=1 and task  LIKE ?",@u_id ,"%#{search_keyword}%"],:order=>"tags.task_order DESC")
+      else
+        @tasks =Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and   status=0 and task  LIKE ?",@u_id ,"%#{search_keyword}%"],:order=>"tags.task_order DESC")
+      end
   else
-    @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=0",@u_id],:order=>"tags.task_order DESC")
-  end
+    if params[:status]=='0'
+       @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=0",@u_id],:order=>"tags.task_order DESC")
+    elsif params[:status]=='1'
+       @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=1",@u_id],:order=>"tags.task_order DESC")
+    else
+       @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=0",@u_id],:order=>"tags.task_order DESC")    end
+    end
 end
 def destroy
     @u_id=session[:user_id]
@@ -139,17 +149,7 @@ def share_task
     end
   end
 
-def search_task
-  search_keyword=params[:task][:task_name].to_s
-  if search_keyword
-  @tasks =Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and task  LIKE ?",@u_id ,"%#{search_keyword}%"],:order=>"tags.task_order DESC")
-  sleep(3)
-  render :partial => "/tasks/taskcontent"
-  else
-    sleep(3)
-    @tasks=Task.all.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? ",@u_id],:order=>"tags.task_order DESC")
-  end
-end
+
 
 
 def share_name_display
