@@ -1,6 +1,4 @@
 require 'will_paginate'
-
-
 class TasksController < ApplicationController
 before_filter :check_id
 @task_progres=[]
@@ -24,6 +22,7 @@ def index
       search_keyword=params[:search]
       if params[:status]=='1'
         @tasks =Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and   status=1 and task  LIKE ?",@u_id ,"%#{search_keyword}%"],:order=>"tags.task_order DESC")
+
       else
         @tasks =Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and   status=0 and task  LIKE ?",@u_id ,"%#{search_keyword}%"],:order=>"tags.task_order DESC")
       end
@@ -35,12 +34,18 @@ def index
     else
        @tasks=Task.paginate(:page=>params[:page],:per_page=>5,:select=>"tasks.*,tags.task_order",:joins=>:tags,:conditions=>["tags.user_id=? and status=0",@u_id],:order=>"tags.task_order DESC")    end
     end
+    sleep(1)
 end
 def destroy
     @u_id=session[:user_id]
     @d_id=params[:id]
-    Task.destroy(@d_id)
-    render_tasks()
+    if @u_id==Task.find(@d_id).user_id
+     Task.destroy(@d_id)
+     render_tasks()
+    else
+     Tag.user_specific_delete(@u_id,@d_id)
+     render_tasks()
+    end
 end
 
 def new
@@ -155,7 +160,7 @@ def share_task
 def share_name_display
   @users=User.all
   @assigned_users=Tag.find_all_by_task_id(params[:task][:task_id]).collect(&:user_id)
-  if @task_owner_id=@assigned_users
+  if @task_owner_id==@assigned_users
       render :partial => "sharetaskmodal"
   else
       render :partial => "sharetaskmodal"

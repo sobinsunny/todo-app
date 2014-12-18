@@ -1,9 +1,12 @@
 class User < ActiveRecord::Base
-  require 'aescrypt'
   require 'bcrypt'
-
+  validates_uniqueness_of :email
   validates_confirmation_of :password
   validates_presence_of :password_confirmation, :if => :password_changed?
+
+
+
+  
   has_many :tasks , :dependent => :destroy
   has_many:comments , :dependent => :destroy
   before_save :encrypt_password

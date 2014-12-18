@@ -1,13 +1,21 @@
 <%form_for :shares_form do |s|%>
-<table>
-  <tr>
-<% @users.each do |user| %>
-      <% if  user.name!=@user.name%>
-           <td style="padding-left: 5px"><%= check_box_tag "share_names[]",user.id,@assigned_users.include?(user.id)%>  </td>
-         <td  style="padding-left: 10px;padding-right: 89px;"><%=user.name%></td>
+  <% i=0 %>
+      <table>
+  <% @users.each do |user| %>
+      <% if i==0 %>
+        <tr>
+      <% end %>
+          <% if  user.name!=@user.name%>
+          <td style="padding-left: 5px;padding-bottom:26px;"><%= check_box_tag "share_names[]",user.id,@assigned_users.include?(user.id)%>  </td>
+          <td  style="padding-left: 10px;padding-right: 89px;padding-bottom: 23px;"><%=user.name%></td>
+          <%i=i+1%>
+      <%if i==3%>
+             <%i=0%>
+        </tr>
       <% end %>
   <% end %>
-  </tr>
-    <%= javascript_include_tag "modal_jss" %>
+<% end %>
+
+<%= javascript_include_tag "modal_jss" %>
 </table>
 <% end %>

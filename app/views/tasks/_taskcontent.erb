@@ -1,6 +1,8 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300' rel='stylesheet' type='text/css'>
 <%= javascript_include_tag "taskscript" %>
-
+<%if @tasks.length==0%>
+   No Tasks
+<%end%>
   <% @tasks.each do |task| %>
     <div id="task_<%=task.id %>" class="div_task" >
       <div id="dispaly_text_div">
