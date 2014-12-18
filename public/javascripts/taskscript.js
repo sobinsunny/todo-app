@@ -197,7 +197,7 @@ function delete_task(user_id,id) {
             success: function (data, textStatus, jqXHR) {
                 $("#content_area").html(data);
                 upadate_orderchange_button();
-                window.location="http://localhost:3000/tasks";
+                window.location="http://192.168.1.41:3000/tasks";
                 $(this).remove()
             },
             error: function (jqXHR, textStatus, errorThrown) {

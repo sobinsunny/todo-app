@@ -21,7 +21,7 @@ $(document).ready(function() {
 	$( "#slider" ).slider({
         change: function( event, ui ) {
             var vol = $( "#slider" ).slider( "option", "value" );
-            $('#task_progres_count').html(vol);
+            $('#task_progres_count').html(+vol+"%");
             var task_id=$(this).data("id")
             WaitCount++;
              setTimeout(function(){
@@ -47,7 +47,7 @@ $(document).ready(function() {
 					}
 				});
 			}
-		}, 500);
+		}, 1000);
 
 	  }
 	});

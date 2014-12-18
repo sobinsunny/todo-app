@@ -1,5 +1,12 @@
 $(function(){
 
+function upadate_orderchange_button() {
+    $( ".img_up" ).css( "display", "block" );
+    $( ".img_down" ).css( "display", "block" );
+    $( ".img_up:first" ).css( "display", "none" );
+    $( ".img_down:last" ).css( "display", "none" );
+}
+
     var $container = $('#content_area');
     $container.imagesLoaded(function(){
         $container.masonry({
@@ -26,6 +33,7 @@ $(function(){
                 // show elems now they're ready
                 $newElems.animate({ opacity: 1},"slow");
                 $container.masonry( 'appended', $newElems, true );
+                upadate_orderchange_button();
             });
         }
     );

@@ -2,16 +2,15 @@ $(document).ready(function() {
     $("#name_div").hide();
     $(".pagination").hide();
     $(".modal").hide();
-    $('#search_image').hide();
     upadate_last_div_change_button();
     close = document.getElementById("close");
     setTimeout(function(){
         $('#note').fadeOut();// or fade, css display however you'd like.
     }, 1000);
-    $('#textbox1').click(function(){
-        $('#img_textbox').hide();
-        $('#textbox1').css({"padding":"10px"});
-    });
+//    $('#textbox1').click(function(){
+//        $('#img_textbox').hide();
+//        $('#textbox1').css({"padding":"10px"});
+//    });
     $("#name_div").hide();
     $("#textbox1").keypress(function (e) {
         if (e.keyCode == 13) {
@@ -103,9 +102,18 @@ $(document).ready(function() {
         $("#name_div").show();
     });
     $("body").click(function () {
-        $("#name_div").hide();
+         $('#name_div').hide();
     });
-
+    
+    $("#textbox1").click(function(es) {
+        es.stopPropagation();
+        $('#img_textbox').hide();
+        $('#textbox1').css({"padding":"10px"});
+    });
+    $("body").click(function () {
+         $('#img_textbox').show();
+         $('#textbox1').css({"padding-left":"40px"});
+    });
 
 
 
